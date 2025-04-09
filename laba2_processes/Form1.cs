@@ -40,13 +40,32 @@ namespace laba2_processes
                     var times = simulator.Times;
                     var timesJust = simulator.TimesPuassons;
 
+                    InitializeDataTable(times, timesJust);
                     PaintStream(times, 1);
                     PaintStream(timesJust, 2);
+
+                    label4.Text = $"Порядок потока Эрланга: {simulator.K}";
+                    label5.Text = $"Общее количество: {times.Count}";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void InitializeDataTable(List<double> times, List<double> timesJust)
+        {
+            dataGridView1.Rows.Clear();
+
+            int maxCount = Math.Max(times.Count, timesJust.Count);
+
+            for (int i = 0; i < maxCount; i++)
+            {
+                string value1 = i < times.Count ? times[i].ToString("0.000") : "";
+                string value2 = i < timesJust.Count ? timesJust[i].ToString("0.000") : "";
+
+                dataGridView1.Rows.Add(value1, value2);
             }
         }
 
